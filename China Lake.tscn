@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://cov65sc4yckwl"]
+
+[ext_resource type="Script" uid="uid://cfsa3cfclgiqd" path="res://Scripts/CameraSelect.gd" id="1_4idt7"]
+[ext_resource type="Texture2D" uid="uid://celvmqut0k7vv" path="res://textures/starmap_8k.jpg" id="1_5iqpq"]
+[ext_resource type="Material" uid="uid://bi3sac7p42m4n" path="res://textures/Materials/Grass.tres" id="3_4idt7"]
+[ext_resource type="Script" uid="uid://b75wl5wy3fjh7" path="res://Scripts/Vehicle Assembly/AssemblyMode.gd" id="3_5iqpq"]
+[ext_resource type="Script" uid="uid://drubyh0o8by3a" path="res://Scripts/TimeWarp.gd" id="4_mkpry"]
+[ext_resource type="Script" uid="uid://bhl0jus180n8x" path="res://Scripts/orbital_camera.gd" id="5_a7vw0"]
+[ext_resource type="PackedScene" uid="uid://cpsyiqe1y8wcr" path="res://PlacableParts/VehicleRoot.tscn" id="7_a7vw0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5iqpq"]
+lightmap_size_hint = Vector2i(5004, 2511)
+material = ExtResource("3_4idt7")
+size = Vector3(500, 0.5, 500)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jjnio"]
+radius = 0.35
+height = 1.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mkpry"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lli71"]
+panorama = ExtResource("1_5iqpq")
+energy_multiplier = 2.44
+
+[sub_resource type="Sky" id="Sky_4idt7"]
+sky_material = SubResource("PanoramaSkyMaterial_lli71")
+
+[sub_resource type="Environment" id="Environment_5iqpq"]
+background_mode = 2
+background_energy_multiplier = 3.0
+sky = SubResource("Sky_4idt7")
+ambient_light_source = 3
+tonemap_mode = 3
+tonemap_exposure = 0.84
+tonemap_white = 2.86
+glow_enabled = true
+glow_strength = 1.06
+glow_bloom = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4idt7"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 1, 0.30588236, 0.3137255)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a7vw0"]
+material = SubResource("StandardMaterial3D_4idt7")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7vw0"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0.6313726, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jjnio"]
+material = SubResource("StandardMaterial3D_a7vw0")
+radius = 0.1
+height = 0.2
+radial_segments = 32
+rings = 16
+
+[node name="AAAHHH" type="Node3D" unique_id=739952194]
+script = ExtResource("1_4idt7")
+
+[node name="UI elements" type="Control" parent="." unique_id=1133787736]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 10.0
+offset_right = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_mkpry")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="UI elements" unique_id=626012085]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 272.0
+offset_bottom = 301.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI elements/PanelContainer" unique_id=1228476399]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI elements/PanelContainer/VBoxContainer" unique_id=1737475671]
+layout_mode = 2
+text = "TIME WARP:"
+
+[node name="Number" type="Label" parent="UI elements/PanelContainer/VBoxContainer" unique_id=205066800]
+layout_mode = 2
+text = "1X"
+
+[node name="Timewarp" type="HSlider" parent="UI elements/PanelContainer/VBoxContainer" unique_id=858891359]
+layout_mode = 2
+min_value = 1.0
+max_value = 25.0
+value = 1.0
+
+[node name="doohickey" type="CheckButton" parent="UI elements/PanelContainer/VBoxContainer" unique_id=1621549630]
+layout_mode = 2
+theme_override_colors/button_checked_color = Color(0.5509041, 0.99999994, 0.63547057, 1)
+
+[node name="Label" type="Label" parent="UI elements/PanelContainer/VBoxContainer/doohickey" unique_id=1193725350]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.020833334
+anchor_right = 0.5280899
+anchor_bottom = 0.9791667
+grow_vertical = 2
+text = "FlightMode Toggle"
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectedPart" type="Label" parent="UI elements/PanelContainer/VBoxContainer" unique_id=1553465061]
+layout_mode = 2
+text = "Selected Part"
+
+[node name="Part Name" type="Label" parent="UI elements/PanelContainer/VBoxContainer/SelectedPart" unique_id=2091429363]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4307116
+anchor_top = 0.26086956
+anchor_right = 1.0224719
+anchor_bottom = 0.95652175
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 11
+text = "Partname"
+metadata/_edit_use_anchors_ = true
+
+[node name="InsertRoot" type="Button" parent="UI elements/PanelContainer/VBoxContainer" unique_id=20566319]
+layout_mode = 2
+text = "Insert New Root Part"
+
+[node name="Space" type="Node3D" parent="." unique_id=500195854]
+
+[node name="Plane of existence" type="CSGMesh3D" parent="Space" unique_id=985333390]
+use_collision = true
+mesh = SubResource("BoxMesh_5iqpq")
+
+[node name="human scale" type="MeshInstance3D" parent="Space/Plane of existence" unique_id=1202717481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.065, 0)
+mesh = SubResource("CapsuleMesh_jjnio")
+
+[node name="GravityField" type="Area3D" parent="Space/Plane of existence" unique_id=1427373026]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Space/Plane of existence/GravityField" unique_id=319556944]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 25, 0)
+shape = SubResource("BoxShape3D_mkpry")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Space" unique_id=398994661]
+transform = Transform3D(1, 0, 0, 0, -0.72657466, 0.68708754, 0, -0.68708754, -0.72657466, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Space" type="WorldEnvironment" parent="Space" unique_id=1676560308]
+environment = SubResource("Environment_5iqpq")
+
+[node name="PlayModeCamera" type="Node3D" parent="." unique_id=966675594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+script = ExtResource("5_a7vw0")
+
+[node name="Camera3D" type="Camera3D" parent="PlayModeCamera" unique_id=490700561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+fov = 90.0
+
+[node name="AssemblyModeCamera3D" type="Camera3D" parent="." unique_id=1530920030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19, 11)
+current = true
+script = ExtResource("3_5iqpq")
+camspeed = 15.0
+
+[node name="Vehicle" type="Node3D" parent="." unique_id=1961253671]
+
+[node name="Vehicle Root" parent="Vehicle" unique_id=1630728046 instance=ExtResource("7_a7vw0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="PlacementPreview" type="MeshInstance3D" parent="." unique_id=798537099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
+mesh = SubResource("BoxMesh_a7vw0")
+
+[node name="Cursor" type="MeshInstance3D" parent="." unique_id=793497780]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
+mesh = SubResource("SphereMesh_jjnio")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Cursor" unique_id=1203873057]
+light_color = Color(0, 1, 0.8235294, 1)
+light_energy = 0.049
+omni_range = 1.348

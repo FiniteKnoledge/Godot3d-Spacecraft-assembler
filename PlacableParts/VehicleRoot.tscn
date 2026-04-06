@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cpsyiqe1y8wcr"]
+
+[ext_resource type="Script" uid="uid://cnw2tdod8qm0b" path="res://Scripts/Vehicle Assembly/vehicle_root.gd" id="1_d37ha"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d37ha"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oqveh"]
+size = Vector3(2, 2, 2)
+
+[node name="Vehicle Root" type="RigidBody3D" unique_id=1630728046]
+mass = 50.0
+script = ExtResource("1_d37ha")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1047804318]
+shape = SubResource("BoxShape3D_d37ha")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=186313513]
+mesh = SubResource("BoxMesh_oqveh")
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="." unique_id=734286148]
