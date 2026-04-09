@@ -1,16 +1,19 @@
-[gd_scene format=3 uid="uid://bdaayifuhhimx"]
+[gd_scene load_steps=4 format=3 uid="uid://bdaayifuhhimx"]
+
+[ext_resource type="Material" uid="uid://xmfin27kdipc" path="res://textures/Materials/Structural.tres" id="1_8cq67"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d37ha"]
 size = Vector3(2, 2, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_oqveh"]
+material = ExtResource("1_8cq67")
 size = Vector3(2, 2, 2)
 
-[node name="Structural Block" type="RigidBody3D" unique_id=956329517]
-mass = 5.0
+[node name="Structural Block" type="RigidBody3D"]
+mass = 2.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2122554386]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_d37ha")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=257452271]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_oqveh")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://2gk7atedyf7y"]
+
+[ext_resource type="Script" uid="uid://cas8vj61ecuoj" path="res://PlacableParts/Gyro.gd" id="1_iouas"]
+[ext_resource type="Material" uid="uid://c1j0doe34gxd5" path="res://textures/Materials/Gyro.tres" id="2_iouas"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d37ha"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oqveh"]
+material = ExtResource("2_iouas")
+size = Vector3(2, 2, 2)
+
+[node name="GyroBlock" type="RigidBody3D"]
+mass = 10.0
+script = ExtResource("1_iouas")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_d37ha")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_oqveh")
+
+[node name="Front" type="Label3D" parent="."]
+transform = Transform3D(-1, -3.821371e-15, 8.742278e-08, -8.742278e-08, 4.371139e-08, -1, 0, -1, -4.371139e-08, 0, -1.005, 0)
+pixel_size = 0.02
+text = "Front"
+
+[node name="Down" type="Label3D" parent="."]
+transform = Transform3D(1, -8.742277e-08, -8.742278e-08, 8.742277e-08, 1, -7.642742e-15, 8.742278e-08, 0, 1, 0, 0.004508555, 1.005)
+pixel_size = 0.02
+text = "Down"
+
+[node name="Up" type="Label3D" parent="."]
+transform = Transform3D(-1, -8.742278e-08, -7.642742e-15, -8.742278e-08, 1, 8.742278e-08, 0, 8.742278e-08, -1, 0, 0.0045084953, -1.0045085)
+pixel_size = 0.02
+text = "Up
+"
+
+[node name="Back" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.0045085, 0)
+pixel_size = 0.025
+text = "Back
+"

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cpsyiqe1y8wcr"]
+[gd_scene load_steps=4 format=3 uid="uid://cpsyiqe1y8wcr"]
 
 [ext_resource type="Script" uid="uid://cnw2tdod8qm0b" path="res://Scripts/Vehicle Assembly/vehicle_root.gd" id="1_d37ha"]
 
@@ -8,12 +8,13 @@ size = Vector3(2, 2, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_oqveh"]
 size = Vector3(2, 2, 2)
 
-[node name="Vehicle Root" type="RigidBody3D" unique_id=1630728046]
-mass = 50.0
+[node name="Vehicle Root" type="RigidBody3D"]
+mass = 20.0
+angular_damp = 48.0
 script = ExtResource("1_d37ha")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1047804318]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_d37ha")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=186313513]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_oqveh")

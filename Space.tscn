@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://eyc8knw8asd0"]
+
+[ext_resource type="Material" uid="uid://bi3sac7p42m4n" path="res://textures/Materials/Grass.tres" id="1_pevjf"]
+[ext_resource type="Texture2D" uid="uid://celvmqut0k7vv" path="res://textures/starmap_8k.jpg" id="2_56m4v"]
+[ext_resource type="Texture2D" uid="uid://x0klxypwmot5" path="res://textures/lroc_color_poles_1k.jpg" id="3_i3b6p"]
+[ext_resource type="Texture2D" uid="uid://u5bliqfk76n1" path="res://textures/ldem_3_8bit.jpg" id="4_p6gje"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5iqpq"]
+lightmap_size_hint = Vector2i(5004, 2511)
+material = ExtResource("1_pevjf")
+size = Vector3(500, 0.5, 500)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jjnio"]
+radius = 0.35
+height = 1.6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mkpry"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lli71"]
+panorama = ExtResource("2_56m4v")
+energy_multiplier = 2.44
+
+[sub_resource type="Sky" id="Sky_4idt7"]
+sky_material = SubResource("PanoramaSkyMaterial_lli71")
+
+[sub_resource type="Environment" id="Environment_5iqpq"]
+background_mode = 2
+background_energy_multiplier = 3.0
+sky = SubResource("Sky_4idt7")
+ambient_light_source = 3
+tonemap_mode = 3
+tonemap_exposure = 0.84
+tonemap_white = 2.86
+glow_enabled = true
+glow_strength = 1.06
+glow_bloom = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v6cjp"]
+radius = 95.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_527gs"]
+albedo_texture = ExtResource("3_i3b6p")
+normal_enabled = true
+normal_texture = ExtResource("4_p6gje")
+
+[sub_resource type="SphereMesh" id="SphereMesh_a7vw0"]
+material = SubResource("StandardMaterial3D_527gs")
+radius = 500.0
+height = 1000.0
+radial_segments = 256
+rings = 128
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j785h"]
+radius = 500.0
+
+[node name="Space" type="Node3D"]
+
+[node name="Earth" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("BoxMesh_5iqpq")
+
+[node name="human scale" type="MeshInstance3D" parent="Earth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.065, 0)
+mesh = SubResource("CapsuleMesh_jjnio")
+
+[node name="GravityField" type="Area3D" parent="Earth"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Earth/GravityField"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 25, 0)
+shape = SubResource("BoxShape3D_mkpry")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.70710677, 0.5137659, -0.48584425, 0.70710677, -0.5137659, 0.48584425, 0, -0.68708754, -0.72657466, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Space" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5iqpq")
+
+[node name="Mun" type="RigidBody3D" parent="."]
+mass = 200000.0
+lock_rotation = true
+freeze = true
+
+[node name="Gravity well" type="Area3D" parent="Mun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10000)
+gravity_space_override = 1
+gravity_point = true
+gravity_point_unit_distance = 500.0
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 2.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mun/Gravity well"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+shape = SubResource("SphereShape3D_v6cjp")
+
+[node name="Moon" type="MeshInstance3D" parent="Mun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10000)
+mesh = SubResource("SphereMesh_a7vw0")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10000)
+shape = SubResource("SphereShape3D_j785h")

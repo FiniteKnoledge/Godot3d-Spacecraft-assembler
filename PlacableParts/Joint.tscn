@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1a44t2cdbdp3"]
+
+[ext_resource type="Script" uid="uid://cgxyq55li4bx6" path="res://Scripts/Vehicle Assembly/jointbreak.gd" id="1_635on"]
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D"]
+script = ExtResource("1_635on")
+break_distance = 8.0
